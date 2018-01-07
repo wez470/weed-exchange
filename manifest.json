@@ -1,0 +1,7 @@
+{
+  "name": "Weed Exchange",
+  "short_name": "Weed Exchange",
+  "description": "Cannabis Reviews",
+  "start_url": "/",
+  "display": "standalone"
+}
