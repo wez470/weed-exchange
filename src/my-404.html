@@ -1,0 +1,23 @@
+<dom-module id="my-404">
+  <template>
+    <style>
+      .text {
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+    <h1 class="text">🔥 There's nothing on this page 🔥</h1>
+  </template>
+  
+  <script>
+      /**
+       * @customElement
+       * @polymer
+       */
+      class My404 extends Polymer.Element {
+        static get is() { return 'my-404'; }
+      }
+  
+      window.customElements.define(My404.is, My404);
+    </script>
+  </dom-module>

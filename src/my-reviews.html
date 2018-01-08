@@ -1,0 +1,23 @@
+<dom-module id="my-reviews">
+  <template>
+    <style>
+        .text {
+          display: flex;
+          justify-content: center;
+        }
+      </style>
+      <h1 class="text">Reviews</h1>
+  </template>
+
+  <script>
+      /**
+       * @customElement
+       * @polymer
+       */
+       class MyReviews extends Polymer.Element {
+        static get is() { return 'my-reviews'; }
+      }
+  
+      window.customElements.define(MyReviews.is, MyReviews);
+  </script>
+</dom-module>

@@ -3,5 +3,7 @@
   "short_name": "Weed Exchange",
   "description": "Cannabis Reviews",
   "start_url": "/",
-  "display": "standalone"
+  "display": "standalone",
+  "theme_color": "#4CAF50",
+  "background_color": "#4CAF50"
 }

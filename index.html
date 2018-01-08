@@ -7,12 +7,27 @@
     <title>Weed Exchange</title>
     <meta name="description" content="Cannabis Reviews">
 
-    <!-- See https://goo.gl/OOhYW5 -->
     <link rel="manifest" href="/manifest.json">
 
     <script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 
-    <link rel="import" href="/src/weed-exchange-app/weed-exchange-app.html">
+    <link rel="import" href="/src/weed-exchange-app.html">
+
+    <base href="/">
+
+    <script>
+         window.Polymer = {rootPath: '/'};
+    </script>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Roboto', 'Noto', sans-serif;
+        line-height: 1.5;
+        min-height: 100vh;
+        background-color: #eeeeee;
+      }
+    </style>
   </head>
   <body>
     <weed-exchange-app></weed-exchange-app>
