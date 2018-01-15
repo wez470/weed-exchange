@@ -2,26 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-
     <title>Weed Exchange</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
     <meta name="description" content="Cannabis Reviews">
-
-    <base href="/">
-    
-    <link rel="manifest" href="/manifest.json">
-
     <meta name="theme-color" content="#43A047">
+    <base href="/">
+    <link rel="manifest" href="/manifest.json">
     
-    <!-- This must be imported before the below script can run. Otherwise window.Polymer will be undefined -->
+    <!-- window.Polymer must be set before polymer is imported. Otherwise it will overwrite it -->
     <script>
-      console.log(window.Polymer);
       window.Polymer = {'rootPath': '/'};
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('service-worker.js', {
+            scope: Polymer.rootPath,
+          });
+        });
+      }
     </script>
 
-    <link rel="import" href="/src/weed-exchange-app.html">
-
     <script src="/bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="import" href="/src/weed-exchange-app.html">
 
 <style>
       body {
