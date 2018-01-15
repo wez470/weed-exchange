@@ -1,20 +1,21 @@
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../bower_components/app-route/app-location.html">
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="my-icons.html">
 
-<link rel="lazy-import" href="my-404.html">
-<link rel="lazy-import" href="my-reviews.html">
+<link rel="lazy-import" href="./my-404.html">
+<link rel="lazy-import" href="./my-reviews.html">
 
 <dom-module id="weed-exchange-app">
   <template>
@@ -54,14 +55,14 @@
   
     <app-drawer-layout fullbleed narrow="{{narrow}}">
       <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
-        <app-toolbar></app-toolbar>
+        <app-toolbar>Menu</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="reviews" href="[[rootPath]]reviews">Reviews</a>
         </iron-selector>
       </app-drawer>
 
-      <app-header-layout>
-        <app-header slot="header" fixed condenses reveals effects="waterfall">
+      <app-header-layout has-scrolling-region>
+        <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
             <div main-title>Weed Exchange</div>
@@ -101,24 +102,42 @@
             observer: '_pageChanged',
           },
           subroute: String,
-          routeData: Object
+          routeData: Object,
+          rootPath: String,
         };
       }
 
       static get observers() {
         return [
           '_routePageChanged(routeData.page)',
+          '_routeDataChanged(routeData)',
         ];
+      }
+
+      _routeDataChanged(data) {
+        //console.log("_routeDataChanged");
       }
 
       _routePageChanged(page) {
         // If no page was found in the route data, page will be an empty string.
         // Default to 'reviews' in that case.
+        // console.log(this.routeData);
+        // console.log(this.subroute);
+        // console.log(this.rootPath);
+        console.log("_routePageChanged. Setting this.page from " + this.page + " to " + page);
+
         this.page = page || 'reviews';
+
+        // console.log("this.page after change: " + this.page);
+
+        if (!this.$.drawer.persistent) {
+          this.$.drawer.close();
+        }
       }
 
       _pageChanged(page) {
         // Load page import on demand. Show 404 page if fails
+        console.log("_pageChanged: " + page + "  importing page my-" + page + ".html");
         var resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
         Polymer.importHref(
             resolvedPageUrl,
@@ -128,6 +147,7 @@
       }
 
       _showPage404() {
+        //console.log("Setting page to 404 page.")
         this.page = '404';
       }
     }
