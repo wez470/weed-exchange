@@ -10,7 +10,9 @@
 <link rel="import" href="../bower_components/app-route/app-route.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">
 <link rel="import" href="../bower_components/polymerfire/firebase-app.html">
 <link rel="import" href="my-icons.html">
 
@@ -30,6 +32,10 @@
       app-toolbar {
         color: white;
         background-color: var(--app-primary-color);
+      }
+
+      .tall-toolbar {
+        height: 5rem;
       }
 
       app-drawer-layout:not([narrow]) [drawer-toggle] {
@@ -56,6 +62,27 @@
         color: black;
         font-weight: bold;
       }
+
+      paper-tabs {
+        --paper-tabs-selection-bar-color: #A5D6A7;
+        height: 100%;
+      }
+      paper-tab {
+        --paper-tab-ink: white;
+        min-width: 100px;
+        max-width: 100px;
+        font-size: 1.1rem;
+      }
+      paper-tab a {
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+        color: white;
+        text-decoration: none;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
     </style>
     
     <firebase-app 
@@ -79,19 +106,36 @@
     </app-route>
   
     <app-drawer-layout force-narrow fullbleed>
+      <!-- mobile view  menu -->
       <app-drawer id="drawer" slot="drawer" swipe-open=true>
         <app-toolbar></app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="reviews" href="[[rootPath]]reviews">Reviews</a>
+          <a name="404" href="[[rootPath]]404">404</a>
         </iron-selector>
       </app-drawer>
 
       <app-header-layout has-scrolling-region>
+        
         <app-header slot="header" reveals effects="waterfall">
-          <app-toolbar>
-            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title>Weed Exchange</div>
-          </app-toolbar>
+            <!-- mobile view header -->
+          <div hidden$="[[wideLayout]]">
+            <app-toolbar>
+              <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+              <div main-title>Weed Exchange</div>
+            </app-toolbar>
+          </div>
+
+          <!-- desktop view header -->
+          <div hidden$="[[!wideLayout]]">
+            <app-toolbar class="tall-toolbar">
+              <div main-title>Weed Exchange</div>
+              <paper-tabs selected="[[page]]" attr-for-selected="name" role="tablist">
+                <paper-tab name="reviews"><a href="[[rootPath]]reviews">Reviews</a></paper-tab>
+                <paper-tab name="404"><a href="[[rootPath]]404">404</a></paper-tab>
+              </paper-tabs>
+            </app-toolbar>
+          </div>
         </app-header>
         
         <iron-pages
@@ -104,6 +148,8 @@
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
+    
+    <iron-media-query query="min-width: 800px" query-matches="{{wideLayout}}"></iron-media-query>
   </template>
 
   <script>
@@ -121,7 +167,11 @@
             observer: '_pageChanged',
           },
           subroute: String,
-          routeData: Object,
+          wideLayout: {
+            type: Boolean,
+            value: false,
+            observer: 'onLayoutChange',
+          },
         };
       }
 
@@ -132,8 +182,7 @@
       }
 
       _routePageChanged(page) {
-        // If no page was found in the route data, page will be an empty string.
-        // Default to 'reviews' in that case.
+        // Default to the reviews page
         this.page = page || 'reviews';
 
         if (!this.$.drawer.persistent) {
