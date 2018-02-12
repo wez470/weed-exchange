@@ -1,15 +1,26 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
 
 <dom-module id="my-reviews">
   <template>
     <style>
-        .text {
-          display: flex;
-          justify-content: center;
-        }
-      </style>
-      <h1 class="text">Search</h1>
-      <input>
+      .content {
+        margin: 0px 20px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+      paper-button.green {
+        color: var(--app-secondary-color);;
+        background-color: var(--app-primary-color);
+      }
+    </style>
+    <div class="content">
+      <h1>Search Cannabis Strain</h1>
+      <paper-input value="{{searchString}}"></paper-input>
+      <paper-button class="green" on-click="searchStrain">search</paper-button>
+    </div>
   </template>
 
   <script>
@@ -19,6 +30,16 @@
        */
        class MyReviews extends Polymer.Element {
         static get is() { return 'my-reviews'; }
+
+        static get properties() {
+          return {
+            searchString: String
+          };
+        }
+
+        searchStrain() {
+          console.log("Searching strain: " + this.searchString);
+        }
       }
   
       window.customElements.define(MyReviews.is, MyReviews);

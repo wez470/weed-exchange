@@ -19,12 +19,14 @@
 <link rel="lazy-import" href="my-404.html">
 <link rel="lazy-import" href="my-reviews.html">
 
-<dom-module id="weed-exchange-app">
+<dom-module id="meta-chronic-app">
   <template>
     <style>
       :host {
         --app-primary-color: #43A047;
         --app-secondary-color: black;
+        --primary-color: #43A047;
+        --secondary-color: black;
 
         display: block;
       }
@@ -124,14 +126,14 @@
           <div hidden$="[[wideLayout]]">
             <app-toolbar>
               <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-              <div main-title>Weed Exchange</div>
+              <div main-title>Meta Chronic</div>
             </app-toolbar>
           </div>
 
           <!-- desktop view header -->
           <div hidden$="[[!wideLayout]]">
             <app-toolbar class="tall-toolbar">
-              <div main-title>Weed Exchange</div>
+              <div main-title>Meta Chronic</div>
               <paper-tabs selected="[[page]]" attr-for-selected="name" role="tablist">
                 <paper-tab name="reviews"><a href="[[rootPath]]reviews">Reviews</a></paper-tab>
                 <paper-tab name="404"><a href="[[rootPath]]404">404</a></paper-tab>
@@ -159,8 +161,8 @@
      * @customElement
      * @polymer
      */
-    class WeedExchangeApp extends Polymer.Element {
-      static get is() { return 'weed-exchange-app'; }
+    class MetaChronicApp extends Polymer.Element {
+      static get is() { return 'meta-chronic-app'; }
       static get properties() {
         return {
           page: {
@@ -172,7 +174,6 @@
           wideLayout: {
             type: Boolean,
             value: false,
-            observer: 'onLayoutChange',
           },
         };
       }
@@ -206,6 +207,6 @@
       }
     }
 
-    window.customElements.define(WeedExchangeApp.is, WeedExchangeApp);
+    window.customElements.define(MetaChronicApp.is, MetaChronicApp);
   </script>
 </dom-module>

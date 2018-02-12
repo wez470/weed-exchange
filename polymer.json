@@ -1,6 +1,6 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/weed-exchange-app.html",
+  "shell": "src/meta-chronic-app.html",
   "sources": [
     "src/**/*"
   ],

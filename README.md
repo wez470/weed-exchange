@@ -1,4 +1,4 @@
-# \<Weed Exchange\>
+# \<Meta Chronic\>
 
 Cannabis Reviews
 
