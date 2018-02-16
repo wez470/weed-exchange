@@ -44,10 +44,18 @@
           request.responseType = 'text';
 
           request.onload = function() {
+            console.log("XML");
             console.log(request.response);
           };
 
           request.send();
+
+          fetch('http://localhost:5000/weed-exchange/us-central1/helloWorld').then(function(response) {
+            response.text().then(function(text) {
+              console.log("Fetch");
+              console.log(text);
+            });
+          });
         }
       }
   
