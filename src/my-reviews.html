@@ -38,7 +38,7 @@
         }
 
         searchStrain() {
-          fetch('http://localhost:5000/weed-exchange/us-central1/helloWorld' + '?strain=' + this.searchString.trim()).then(function(response) {
+          fetch('https://us-central1-weed-exchange.cloudfunctions.net/searchStrain' + '?strain=' + this.searchString.trim()).then(function(response) {
             response.text().then(function(text) {
               console.log(text);
             });

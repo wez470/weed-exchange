@@ -3,7 +3,7 @@ var axios = require("axios");
 
 var ALLOWED_DOMAINS = ["https://meta-chronic.com", "https://weed-exchange.firebaseapp.com"];
 
-exports.helloWorld = functions.https.onRequest((request, response) => {
+exports.searchStrain = functions.https.onRequest((request, response) => {
     var host = request.get('host');
     console.log(host);
     if (ALLOWED_DOMAINS.indexOf(host) >= 0) {
@@ -16,12 +16,12 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
     strain = request.query.strain;
     console.log("Searching strain: " + strain);
     axios.get('https://weston-carlson.com/meta-chronic/strain/search?q=' + strain)
-        .then(function (res) {
+        .then(res => {
             var data = JSON.stringify(res['data']);
             console.log(data);
             response.send(data);
         })
-        .catch(function (error) {
+        .catch(error => {
             console.log(error);
             response.status(500).end();
         });
