@@ -39,6 +39,15 @@
 
         searchStrain() {
           console.log("Searching strain: " + this.searchString);
+          var request = new XMLHttpRequest();
+          request.open('GET', 'http://localhost:5000/weed-exchange/us-central1/helloWorld');
+          request.responseType = 'text';
+
+          request.onload = function() {
+            console.log(request.response);
+          };
+
+          request.send();
         }
       }
   
