@@ -13,7 +13,9 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
         return;
     }
 
-    axios.get('https://weston-carlson.com/meta-chronic/strain/search?q=raspberry+kush')
+    strain = request.query.strain;
+    console.log("Searching strain: " + strain);
+    axios.get('https://weston-carlson.com/meta-chronic/strain/search?q=' + strain)
         .then(function (res) {
             var data = JSON.stringify(res['data']);
             console.log(data);

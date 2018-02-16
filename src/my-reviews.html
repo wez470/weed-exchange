@@ -38,21 +38,8 @@
         }
 
         searchStrain() {
-          console.log("Searching strain: " + this.searchString);
-          var request = new XMLHttpRequest();
-          request.open('GET', 'http://localhost:5000/weed-exchange/us-central1/helloWorld');
-          request.responseType = 'text';
-
-          request.onload = function() {
-            console.log("XML");
-            console.log(request.response);
-          };
-
-          request.send();
-
-          fetch('http://localhost:5000/weed-exchange/us-central1/helloWorld').then(function(response) {
+          fetch('http://localhost:5000/weed-exchange/us-central1/helloWorld' + '?strain=' + this.searchString.trim()).then(function(response) {
             response.text().then(function(text) {
-              console.log("Fetch");
               console.log(text);
             });
           });
