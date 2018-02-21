@@ -26,8 +26,11 @@
         display: flex;
         justify-content: center
       }
+      .link {
+        text-decoration: none;
+      }
       paper-button.green {
-        color: var(--app-secondary-color);;
+        color: var(--app-secondary-color);
         background-color: var(--app-primary-color);
       }
       paper-spinner-lite[active] {
@@ -65,7 +68,7 @@
           <template class="header">
             <vaadin-grid-sorter path="allbud.rating">Allbud Rating</vaadin-grid-sorter>
           </template>
-          <template>[[item.allbud.rating]]</template>
+          <template><a class="link" href$="[[item.allbud.url]]">[[item.allbud.rating]]</a></template>
         </vaadin-grid-column> -->
 
         <vaadin-grid-column>
@@ -79,7 +82,7 @@
           <template class="header">
             <vaadin-grid-sorter path="leafly.rating">Leafly Rating</vaadin-grid-sorter>
           </template>
-          <template>[[item.leafly.rating]]</template>
+          <template><a class="link" href$="[[item.leafly.url]]">[[item.leafly.rating]]</a></template>
         </vaadin-grid-column>
 
         <vaadin-grid-column>
@@ -137,13 +140,20 @@
         this.noData = false;
         this.loading = true;
         let self = this;
+        if (this.searchString) {
+          this.searchString = this.searchString.trim();
+        }
         let resultData = {"strain_reviews":{"jesus og":{"Meta Chronic Average":{"url":"","strain":"jesus og","rating":4.627338129496402,"ratings":278},"Allbud":{"url":"https://www.allbud.com/marijuana-strains/sativa-dominant-hybrid/jesus-og","strain":"jesus og","rating":5.0,"ratings":19},"Leafly":{"url":"","strain":"jesus og","rating":4.6,"ratings":259}}, "black mountain x jesus og kush":{"Allbud":{"url":"https://www.allbud.com/marijuana-strains/sativa-dominant-hybrid/black-mountain-x-jesus-og-kush","strain":"black mountain x jesus og kush","rating":4.6,"ratings":25}},"baby jesus og":{"Allbud":{"url":"https://www.allbud.com/marijuana-strains/sativa-dominant-hybrid/baby-jesus-og","strain":"baby jesus og","rating":4.6,"ratings":20}}}};
-        fetch('https://ia19mmhldf.execute-api.us-east-1.amazonaws.com/Prod?strain=' + this.searchString.trim()).then(function(response) {
-          response.text().then(function(text) {
-            console.log(JSON.parse(text));
-            self.updateTableData(resultData);
-          });
-        });
+        // fetch('https://ia19mmhldf.execute-api.us-east-1.amazonaws.com/Prod?strain=' + this.searchString).then(function(response) {
+        //   response.text().then(function(text) {
+        //     console.log(JSON.parse(text));
+        //     self.updateTableData(resultData);
+        //   });
+        // }).then(function() {
+        //   self.loading = false;
+        // });
+        self.updateTableData(resultData);
+        self.loading = false;
       }
 
       updateTableData(resultData) {
@@ -181,7 +191,6 @@
           newStrainData.push({strain: currStrain, allbud: allbudData, leafly: leaflyData, metachronic: metaChronicData});
         }
         this.strainData = this.strainData.concat(newStrainData);
-        this.loading = false;
       }
     }
 
