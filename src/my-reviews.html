@@ -69,49 +69,49 @@
       </div>      
       <vaadin-grid hidden$="[[noData]]" class="table" items="[[strainViewData]]" multi-sort>
         
-        <vaadin-grid-column>
+        <vaadin-grid-column width="160px">
           <template class="header">
               <vaadin-grid-sorter path="strain">Strain</vaadin-grid-sorter>
           </template>
           <template>[[item.strain]]</template>
         </vaadin-grid-column>
     
-        <vaadin-grid-column>
+        <vaadin-grid-column width="110px">
           <template class="header">
             <vaadin-grid-sorter path="allbud.rating">Allbud Rating</vaadin-grid-sorter>
           </template>
           <template><a class="link" href$="[[item.allbud.url]]">[[item.allbud.rating]]</a></template>
         </vaadin-grid-column> -->
 
-        <vaadin-grid-column>
+        <vaadin-grid-column width="150px">
           <template class="header">
             <vaadin-grid-sorter path="allbud.ratings">Total Allbud Ratings</vaadin-grid-sorter>
           </template>
           <template>[[item.allbud.ratings]]</template>
         </vaadin-grid-column>
 
-        <vaadin-grid-column>
+        <vaadin-grid-column width="110px">
           <template class="header">
             <vaadin-grid-sorter path="leafly.rating">Leafly Rating</vaadin-grid-sorter>
           </template>
           <template><a class="link" href$="[[item.leafly.url]]">[[item.leafly.rating]]</a></template>
         </vaadin-grid-column>
 
-        <vaadin-grid-column>
+        <vaadin-grid-column width="150px">
           <template class="header">
             <vaadin-grid-sorter path="leafly.ratings">Total Leafly Ratings</vaadin-grid-sorter>
           </template>
           <template>[[item.leafly.ratings]]</template>
         </vaadin-grid-column>
 
-        <vaadin-grid-column>
+        <vaadin-grid-column width="180px">
           <template class="header">
             <vaadin-grid-sorter path="metachronic.rating">Combined Rating</vaadin-grid-sorter>
           </template>
           <template>[[item.metachronic.rating]]</template>
         </vaadin-grid-column>
 
-        <vaadin-grid-column>
+        <vaadin-grid-column width="180px">
           <template class="header">
             <vaadin-grid-sorter path="metachronic.ratings">Total Combined Ratings</vaadin-grid-sorter>
           </template>
@@ -196,6 +196,7 @@
               resultData = JSON.parse(text);
               self.updateStrainData(resultData);
            });
+          }).catch((err) => {
           }).then(function() {
             self.loading = false;
           });
