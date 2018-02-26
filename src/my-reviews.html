@@ -18,6 +18,9 @@
         align-items: center;
         flex-direction: column;
       }
+      .intro {
+        max-width: 800px;
+      }
       .table {
         margin-top: 20px;
         margin-bottom: 20px;
@@ -38,7 +41,8 @@
         background-color: #dddddd;
       }
       paper-spinner-lite[active] {
-        margin: 30px 0px;
+        margin-top: 30px;
+        margin-bottom: 10px;
         display: block;
       }
       paper-spinner-lite {
@@ -52,6 +56,10 @@
     <div class="content">
       <div class="center-container">
         <h1>Search Cannabis Strain</h1>
+        <div class="intro">
+          For best results, search a more specific strain. e.g. Search "Raspberry Kush" rather than "Kush".
+          Your search may time out if it is too general. The columns are multi-sortable.
+        </div>
         <paper-input value="{{searchString}}"></paper-input>
         <paper-button class="green" on-click="searchStrain" disabled$="[[loading]]">search</paper-button>
       </div>
@@ -156,7 +164,6 @@
         let cachedStrainData = localStorage['strainData'];
         if (typeof cachedStrainData !== 'undefined') {
           this.strainData = JSON.parse(cachedStrainData);
-          console.log(this.strainData);
           this.updateTableData()
         }
       }
@@ -183,14 +190,15 @@
           this.searchString = this.searchString.trim();
         }
         let resultData = {};
-        fetch('https://ia19mmhldf.execute-api.us-east-1.amazonaws.com/Prod?strain=' + this.searchString).then(function(response) {
-          response.text().then(function(text) {
-            resultData = JSON.parse(text);
-            self.updateStrainData(resultData);
+        fetch('https://ia19mmhldf.execute-api.us-east-1.amazonaws.com/Prod?strain=' + this.searchString.toLowerCase())
+          .then(function(response) {
+            response.text().then(function(text) {
+              resultData = JSON.parse(text);
+              self.updateStrainData(resultData);
+           });
+          }).then(function() {
+            self.loading = false;
           });
-        }).then(function() {
-          self.loading = false;
-        });
       }
 
       updateStrainData(resultData) {
