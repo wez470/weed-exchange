@@ -13,13 +13,14 @@
       .content {
         margin: 0px 20px;
       }
-      .input {
+      .center-container {
         display: flex;
         align-items: center;
         flex-direction: column;
       }
       .table {
         margin-top: 20px;
+        margin-bottom: 20px;
         height: 100%;
       }
       .spinner {
@@ -49,7 +50,7 @@
       [hidden] { display: none !important; }
     </style>
     <div class="content">
-      <div class="input">
+      <div class="center-container">
         <h1>Search Cannabis Strain</h1>
         <paper-input value="{{searchString}}"></paper-input>
         <paper-button class="green" on-click="searchStrain" disabled$="[[loading]]">search</paper-button>
@@ -58,7 +59,7 @@
       <div hidden$="[[!loading]]" class="spinner">
         <paper-spinner-lite alt="Loading Strain Data" active$="[[loading]]" class="green"></paper-spinner-lite>
       </div>      
-      <vaadin-grid hidden$="[[noData]]" class="table" items="[[strainData]]" multi-sort>
+      <vaadin-grid hidden$="[[noData]]" class="table" items="[[strainViewData]]" multi-sort>
         
         <vaadin-grid-column>
           <template class="header">
@@ -110,6 +111,9 @@
         </vaadin-grid-column>
     
       </vaadin-grid>
+      <div class="center-container">
+        <paper-button class="green" on-click="clearTable" disabled$="[[loading]]" hidden$="[[noData]]">clear table</paper-button>
+      </div>
     </div>
   </template>
 
@@ -118,15 +122,19 @@
      * @customElement
      * @polymer
      */
-      class MyReviews extends Polymer.Element {
+    class MyReviews extends Polymer.Element {
       static get is() { return 'my-reviews'; }
 
       static get properties() {
         return {
           searchString: String,
-          strainData: {
+          strainViewData: {
             type: Array,
             value: []
+          },
+          strainData: {
+            type: Object,
+            value: {}
           },
           loading: {
             type: Boolean,
@@ -139,6 +147,35 @@
         };
       }
 
+      ready() {
+        super.ready();
+        this.initializeStrainData();
+      }
+
+      initializeStrainData() {
+        let cachedStrainData = localStorage['strainData'];
+        if (typeof cachedStrainData !== 'undefined') {
+          this.strainData = JSON.parse(cachedStrainData);
+          console.log(this.strainData);
+          this.updateTableData()
+        }
+      }
+
+      updateTableData() {
+        let viewData = [];
+        for (let currStrain in this.strainData) {
+          let currStrainData = this.strainData[currStrain];
+          viewData.push({
+            strain: currStrain,
+            allbud: currStrainData.allbud,
+            leafly: currStrainData.leafly,
+            metachronic: currStrainData.metachronic
+          });
+        }
+        this.strainViewData = viewData;
+        this.noData = this.strainViewData.length <= 0;
+      }
+
       searchStrain() {
         this.loading = true;
         let self = this;
@@ -149,16 +186,15 @@
         fetch('https://ia19mmhldf.execute-api.us-east-1.amazonaws.com/Prod?strain=' + this.searchString).then(function(response) {
           response.text().then(function(text) {
             resultData = JSON.parse(text);
-            self.updateTableData(resultData);
-            self.noData = self.strainData.length <= 0;
+            self.updateStrainData(resultData);
           });
         }).then(function() {
           self.loading = false;
         });
       }
 
-      updateTableData(resultData) {
-        let newStrainData = [];
+      updateStrainData(resultData) {
+        let newStrainData = {};
         for (var currStrain in resultData) {
           let sourcesData = resultData[currStrain];
 
@@ -188,11 +224,19 @@
             }
           }
 
-          newStrainData.push({strain: currStrain, allbud: allbudData, leafly: leaflyData, metachronic: metaChronicData});
+          newStrainData[currStrain] = {allbud: allbudData, leafly: leaflyData, metachronic: metaChronicData};
         }
         if (Object.keys(newStrainData).length > 0) {
-          this.strainData = this.strainData.concat(newStrainData);
+          Object.assign(this.strainData, newStrainData);
+          localStorage['strainData'] = JSON.stringify(this.strainData);
+          this.updateTableData();
         }
+      }
+
+      clearTable() {
+        this.strainData = {};
+        localStorage['strainData'] = undefined;
+        this.updateTableData();
       }
     }
 

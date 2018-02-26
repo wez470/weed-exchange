@@ -40,6 +40,22 @@
         height: 5rem;
       }
 
+      .title {
+        display: flex;
+        align-items: center;
+      }
+
+      .logo {
+        width: 64px;
+        height: 64px;
+        margin-left: 14px;
+      }
+
+      .logo-mobile {
+        width: 48px;
+        height: 48px;
+      }
+
       app-drawer-layout:not([narrow]) [drawer-toggle] {
         display: none;
       }
@@ -112,7 +128,9 @@
     <app-drawer-layout force-narrow fullbleed>
       <!-- mobile view  menu -->
       <app-drawer id="drawer" slot="drawer" swipe-open=true>
-        <app-toolbar></app-toolbar>
+        <app-toolbar>
+          <img class="logo-mobile" src="images/metachronic-logo-128.png">
+        </app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="reviews" href="[[rootPath]]reviews">Reviews</a>
         </iron-selector>
@@ -132,7 +150,10 @@
           <!-- desktop view header -->
           <div hidden$="[[!wideLayout]]">
             <app-toolbar class="tall-toolbar">
-              <div main-title>Meta Chronic</div>
+              <div main-title class="title">
+                <span>Meta Chronic</span>
+                <img class="logo" src="images/metachronic-logo-128.png">
+              </div>
               <paper-tabs selected="[[page]]" attr-for-selected="name" role="tablist">
                 <paper-tab name="reviews"><a href="[[rootPath]]reviews">Reviews</a></paper-tab>
               </paper-tabs>
