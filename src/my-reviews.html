@@ -2,6 +2,7 @@
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-spinner/paper-spinner-lite.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/vaadin-grid/vaadin-grid.html">
 <link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-column.html">
 <link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-selection-column.html">
@@ -68,65 +69,105 @@
           Your search may time out if it is too general. The columns are multi-sortable.
         </div>
         <paper-input value="{{searchString}}"></paper-input>
+      </div>
+      <div style="margin: auto; max-width: 1600px; display: flex; justify-content: space-between; align-items: flex-end">
+        <paper-checkbox checked="{{advancedView}}">Advanced View</paper-checkbox>
         <paper-button class="green" on-click="searchStrain" disabled$="[[loading]]">search</paper-button>
+        <div style="width: 135px"></div>
       </div>
       
       <div hidden$="[[!loading]]" class="spinner">
         <paper-spinner-lite alt="Loading Strain Data" active$="[[loading]]" class="green"></paper-spinner-lite>
       </div>
       <div class="table-container">   
-        <vaadin-grid hidden$="[[noData]]" class="table" items="[[strainViewData]]" column-reordering-allowed multi-sort>
-          
-          <vaadin-grid-column width="160px" resizable>
-            <template class="header">
-                <vaadin-grid-sorter path="strain">Strain</vaadin-grid-sorter>
-            </template>
-            <template>[[item.strain]]</template>
-          </vaadin-grid-column>
-      
-          <vaadin-grid-column width="110px" resizable>
-            <template class="header">
-              <vaadin-grid-sorter path="allbud.rating">Allbud Rating</vaadin-grid-sorter>
-            </template>
-            <template><a class="link" href$="[[item.allbud.url]]">[[item.allbud.rating]]</a></template>
-          </vaadin-grid-column> -->
+        <div hidden$="[[advancedView]]">
+          <vaadin-grid hidden$="[[noData]]" class="table" items="[[strainViewData]]" column-reordering-allowed multi-sort>
 
-          <vaadin-grid-column width="150px" resizable>
-            <template class="header">
-              <vaadin-grid-sorter path="allbud.ratings">Total Allbud Ratings</vaadin-grid-sorter>
-            </template>
-            <template>[[item.allbud.ratings]]</template>
-          </vaadin-grid-column>
+            <vaadin-grid-column width="200px" resizable>
+              <template class="header">
+                  <vaadin-grid-sorter path="strain">Strain</vaadin-grid-sorter>
+              </template>
+              <template>[[item.strain]]</template>
+            </vaadin-grid-column>
 
-          <vaadin-grid-column width="110px" resizable>
-            <template class="header">
-              <vaadin-grid-sorter path="leafly.rating">Leafly Rating</vaadin-grid-sorter>
-            </template>
-            <template><a class="link" href$="[[item.leafly.url]]">[[item.leafly.rating]]</a></template>
-          </vaadin-grid-column>
+            <vaadin-grid-column width="150px" resizable>
+              <template class="header">
+                <vaadin-grid-sorter path="allbud.rating">Allbud</vaadin-grid-sorter>
+              </template>
+              <template><a class="link" href$="[[item.allbud.url]]">[[item.allbud.rating]] ([[item.allbud.ratings]] reviews)</a></template>
+            </vaadin-grid-column>
 
-          <vaadin-grid-column width="150px" resizable>
-            <template class="header">
-              <vaadin-grid-sorter path="leafly.ratings">Total Leafly Ratings</vaadin-grid-sorter>
-            </template>
-            <template>[[item.leafly.ratings]]</template>
-          </vaadin-grid-column>
+            <vaadin-grid-column width="150px" resizable>
+              <template class="header">
+                <vaadin-grid-sorter path="leafly.rating">Leafly</vaadin-grid-sorter>
+              </template>
+              <template><a class="link" href$="[[item.leafly.url]]">[[item.leafly.rating]] ([[item.leafly.ratings]] reviews)</a></template>
+            </vaadin-grid-column>
 
-          <vaadin-grid-column width="180px" resizable>
-            <template class="header">
-              <vaadin-grid-sorter path="metachronic.rating">Combined Rating</vaadin-grid-sorter>
-            </template>
-            <template>[[item.metachronic.rating]]</template>
-          </vaadin-grid-column>
+            <vaadin-grid-column width="180px" resizable>
+              <template class="header">
+                <vaadin-grid-sorter path="metachronic.rating">Combined</vaadin-grid-sorter>
+              </template>
+              <template>[[item.metachronic.rating]] ([[item.metachronic.ratings]] reviews)</template>
+            </vaadin-grid-column>
 
-          <vaadin-grid-column width="180px" resizable>
-            <template class="header">
-              <vaadin-grid-sorter path="metachronic.ratings">Total Combined Ratings</vaadin-grid-sorter>
-            </template>
-            <template>[[item.metachronic.ratings]]</template>
-          </vaadin-grid-column>
+          </vaadin-grid>
+        </div>
 
-        </vaadin-grid>
+        <div hidden$="[[!advancedView]]">
+          <vaadin-grid hidden$="[[noData]]" class="table" items="[[strainViewData]]" column-reordering-allowed multi-sort>
+
+            <vaadin-grid-column width="200px" resizable>
+              <template class="header">
+                  <vaadin-grid-sorter path="strain">Strain</vaadin-grid-sorter>
+              </template>
+              <template>[[item.strain]]</template>
+            </vaadin-grid-column>
+        
+            <vaadin-grid-column width="110px" resizable>
+              <template class="header">
+                <vaadin-grid-sorter path="allbud.rating">Allbud Rating</vaadin-grid-sorter>
+              </template>
+              <template><a class="link" href$="[[item.allbud.url]]">[[item.allbud.rating]]</a></template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column width="150px" resizable>
+              <template class="header">
+                <vaadin-grid-sorter path="allbud.ratings"># Allbud Reviews</vaadin-grid-sorter>
+              </template>
+              <template>[[item.allbud.ratings]]</template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column width="110px" resizable>
+              <template class="header">
+                <vaadin-grid-sorter path="leafly.rating">Leafly Rating</vaadin-grid-sorter>
+              </template>
+              <template><a class="link" href$="[[item.leafly.url]]">[[item.leafly.rating]]</a></template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column width="150px" resizable>
+              <template class="header">
+                <vaadin-grid-sorter path="leafly.ratings"># Leafly Reviews</vaadin-grid-sorter>
+              </template>
+              <template>[[item.leafly.ratings]]</template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column width="180px" resizable>
+              <template class="header">
+                <vaadin-grid-sorter path="metachronic.rating">Combined Rating</vaadin-grid-sorter>
+              </template>
+              <template>[[item.metachronic.rating]]</template>
+            </vaadin-grid-column>
+
+            <vaadin-grid-column width="180px" resizable>
+              <template class="header">
+                <vaadin-grid-sorter path="metachronic.ratings">Total # Reviews</vaadin-grid-sorter>
+              </template>
+              <template>[[item.metachronic.ratings]]</template>
+            </vaadin-grid-column>
+
+          </vaadin-grid>
+        </div>
       </div>
       <div class="center-container">
         <paper-button class="green clear-table" on-click="clearTable" disabled$="[[loading]]" hidden$="[[noData]]">clear table</paper-button>
@@ -160,6 +201,10 @@
           noData: {
             type: Boolean,
             value: true,
+          },
+          advancedView: {
+            type: Boolean,
+            value: false,
           }
         };
       }
@@ -193,13 +238,15 @@
       }
 
       searchStrain() {
+        // var resultData = {"jesus og":{"metachronic":{"url":"","rating":4.627338129496402,"ratings":278},"allbud":{"url":"https://www.allbud.com/marijuana-strains/sativa-dominant-hybrid/jesus-og","rating":5.0,"ratings":19},"leafly":{"url":"","rating":4.6,"ratings":259}}, "black mountain x jesus og kush":{"allbud":{"url":"https://www.allbud.com/marijuana-strains/sativa-dominant-hybrid/black-mountain-x-jesus-og-kush","rating":4.6,"ratings":25}},"baby jesus og":{"allbud":{"url":"https://www.allbud.com/marijuana-strains/sativa-dominant-hybrid/baby-jesus-og","rating":4.6,"ratings":20}}};
+        // self.updateStrainData(resultData);
         this.loading = true;
         let self = this;
         if (this.searchString) {
-          this.searchString = this.searchString.trim();
+          this.searchString = this.searchString.trim().toLowerCase();
         }
         let resultData = {};
-        fetch('https://ia19mmhldf.execute-api.us-east-1.amazonaws.com/Prod?strain=' + this.searchString.toLowerCase())
+        fetch('https://ia19mmhldf.execute-api.us-east-1.amazonaws.com/Prod?strain=' + this.searchString)
           .then((response) => {
             response.text().then(function(text) {
               resultData = JSON.parse(text);
