@@ -205,13 +205,15 @@
           advancedView: {
             type: Boolean,
             value: false,
+            observer: 'advancedViewChanged'
           }
         };
       }
 
-      ready() {
-        super.ready();
-        this.initializeStrainData();
+      advancedViewChanged(newValue, oldValue) {
+        if (typeof oldValue !== 'undefined') {
+          localStorage['advancedView'] = JSON.stringify(newValue);
+        }
       }
 
       formatSimpleText(rating, ratings) {
@@ -220,6 +222,20 @@
           text = text + " (" + ratings + " reviews)"
         }
         return text;
+      }
+
+      ready() {
+        super.ready();
+        this.initializeTableViewChoice();
+        this.initializeStrainData();
+      }
+
+      initializeTableViewChoice() {
+        let cachedAdvancedView = localStorage['advancedView'];
+        if (typeof cachedAdvancedView !== 'undefined') {
+          this.advancedView = JSON.parse(cachedAdvancedView);
+          console.log('Cached adv view val: ' + JSON.parse(cachedAdvancedView))
+        }
       }
 
       initializeStrainData() {
