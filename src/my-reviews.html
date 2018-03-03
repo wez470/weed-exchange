@@ -94,21 +94,21 @@
               <template class="header">
                 <vaadin-grid-sorter path="allbud.rating">Allbud</vaadin-grid-sorter>
               </template>
-              <template><a class="link" href$="[[item.allbud.url]]">[[item.allbud.rating]] ([[item.allbud.ratings]] reviews)</a></template>
+              <template><a class="link" href$="[[item.allbud.url]]">[[formatSimpleText(item.allbud.rating, item.allbud.ratings)]]</a></template>
             </vaadin-grid-column>
 
             <vaadin-grid-column width="150px" resizable>
               <template class="header">
                 <vaadin-grid-sorter path="leafly.rating">Leafly</vaadin-grid-sorter>
               </template>
-              <template><a class="link" href$="[[item.leafly.url]]">[[item.leafly.rating]] ([[item.leafly.ratings]] reviews)</a></template>
+              <template><a class="link" href$="[[item.leafly.url]]">[[formatSimpleText(item.leafly.rating, item.leafly.ratings)]]</a></template>
             </vaadin-grid-column>
 
             <vaadin-grid-column width="180px" resizable>
               <template class="header">
                 <vaadin-grid-sorter path="metachronic.rating">Combined</vaadin-grid-sorter>
               </template>
-              <template>[[item.metachronic.rating]] ([[item.metachronic.ratings]] reviews)</template>
+              <template>[[formatSimpleText(item.metachronic.rating, item.metachronic.ratings)]]</template>
             </vaadin-grid-column>
 
           </vaadin-grid>
@@ -214,6 +214,14 @@
         this.initializeStrainData();
       }
 
+      formatSimpleText(rating, ratings) {
+        let text = rating;
+        if (ratings) {
+          text = text + " (" + ratings + " reviews)"
+        }
+        return text;
+      }
+
       initializeStrainData() {
         let cachedStrainData = localStorage['strainData'];
         if (typeof cachedStrainData !== 'undefined') {
@@ -238,8 +246,6 @@
       }
 
       searchStrain() {
-        // var resultData = {"jesus og":{"metachronic":{"url":"","rating":4.627338129496402,"ratings":278},"allbud":{"url":"https://www.allbud.com/marijuana-strains/sativa-dominant-hybrid/jesus-og","rating":5.0,"ratings":19},"leafly":{"url":"","rating":4.6,"ratings":259}}, "black mountain x jesus og kush":{"allbud":{"url":"https://www.allbud.com/marijuana-strains/sativa-dominant-hybrid/black-mountain-x-jesus-og-kush","rating":4.6,"ratings":25}},"baby jesus og":{"allbud":{"url":"https://www.allbud.com/marijuana-strains/sativa-dominant-hybrid/baby-jesus-og","rating":4.6,"ratings":20}}};
-        // self.updateStrainData(resultData);
         this.loading = true;
         let self = this;
         if (this.searchString) {
