@@ -41,6 +41,16 @@
       .clear-table {
         margin-bottom: 20px;
       }
+      .top-table-container {
+        margin: auto;
+        max-width: 1600px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+      .placeholder-container {
+        width: 135px;
+      }
       paper-button.green {
         color: var(--app-secondary-color);
         background-color: var(--app-primary-color);
@@ -70,10 +80,10 @@
         </div>
         <paper-input value="{{searchString}}"></paper-input>
       </div>
-      <div style="margin: auto; max-width: 1600px; display: flex; justify-content: space-between; align-items: flex-end">
+      <div class="top-table-container">
         <paper-checkbox checked="{{advancedView}}">Advanced View</paper-checkbox>
         <paper-button class="green" on-click="searchStrain" disabled$="[[loading]]">search</paper-button>
-        <div style="width: 135px"></div>
+        <div class="placeholder-container"></div>
       </div>
       
       <div hidden$="[[!loading]]" class="spinner">
