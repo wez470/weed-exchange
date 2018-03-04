@@ -79,7 +79,7 @@
           For best results, search a more specific strain. e.g. Search "Raspberry Kush" rather than "Kush".
           Your search may time out if it is too general.
         </div>
-        <paper-input value="{{searchString}}"></paper-input>
+        <paper-input value="{{searchString}}" on-keydown="inputButtonPressed"></paper-input>
       </div>
       <div class="top-table-container">
         <div class="placeholder-container" hidden$="[[!noData]]"></div>
@@ -262,6 +262,12 @@
         }
         this.strainViewData = viewData;
         this.noData = this.strainViewData.length <= 0;
+      }
+
+      inputButtonPressed(event) {
+        if (event.key === "Enter") {
+          this.searchStrain();
+        }
       }
 
       searchStrain() {
