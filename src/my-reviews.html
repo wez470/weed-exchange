@@ -124,42 +124,42 @@
           </vaadin-grid-column>
       
           <!-- Advanced View -->
-          <vaadin-grid-column width="110px" resizable hidden$="[[!advancedView]]">
+          <vaadin-grid-column width="150px" hidden$="[[!advancedView]]">
             <template class="header">
               <vaadin-grid-sorter path="allbud.rating">Allbud Rating</vaadin-grid-sorter>
             </template>
             <template><a class="link" href$="[[item.allbud.url]]">[[item.allbud.rating]]</a></template>
           </vaadin-grid-column>
 
-          <vaadin-grid-column width="150px" resizable hidden$="[[!advancedView]]">
+          <vaadin-grid-column width="170px" hidden$="[[!advancedView]]">
             <template class="header">
               <vaadin-grid-sorter path="allbud.ratings"># Allbud Reviews</vaadin-grid-sorter>
             </template>
             <template>[[item.allbud.ratings]]</template>
           </vaadin-grid-column>
 
-          <vaadin-grid-column width="110px" resizable hidden$="[[!advancedView]]">
+          <vaadin-grid-column width="140px" hidden$="[[!advancedView]]">
             <template class="header">
               <vaadin-grid-sorter path="leafly.rating">Leafly Rating</vaadin-grid-sorter>
             </template>
             <template><a class="link" href$="[[item.leafly.url]]">[[item.leafly.rating]]</a></template>
           </vaadin-grid-column>
 
-          <vaadin-grid-column width="150px" resizable hidden$="[[!advancedView]]">
+          <vaadin-grid-column width="170px" hidden$="[[!advancedView]]">
             <template class="header">
               <vaadin-grid-sorter path="leafly.ratings"># Leafly Reviews</vaadin-grid-sorter>
             </template>
             <template>[[item.leafly.ratings]]</template>
           </vaadin-grid-column>
 
-          <vaadin-grid-column width="180px" resizable hidden$="[[!advancedView]]">
+          <vaadin-grid-column width="170px" hidden$="[[!advancedView]]">
             <template class="header">
               <vaadin-grid-sorter path="metachronic.rating">Combined Rating</vaadin-grid-sorter>
             </template>
             <template>[[item.metachronic.rating]]</template>
           </vaadin-grid-column>
 
-          <vaadin-grid-column width="180px" resizable hidden$="[[!advancedView]]">
+          <vaadin-grid-column width="170px" hidden$="[[!advancedView]]">
             <template class="header">
               <vaadin-grid-sorter path="metachronic.ratings">Total # Reviews</vaadin-grid-sorter>
             </template>
