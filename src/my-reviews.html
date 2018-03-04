@@ -3,6 +3,7 @@
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-spinner/paper-spinner-lite.html">
 <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/isw-dialog/isw-dialog-remote.html">
 <link rel="import" href="../bower_components/vaadin-grid/vaadin-grid.html">
 <link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-column.html">
 <link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-selection-column.html">
@@ -171,6 +172,11 @@
         <paper-button class="green clear-table" on-click="clearTable" disabled$="[[loading]]" hidden$="[[noData]]">clear table</paper-button>
       </div>
     </div>
+
+    <isw-dialog-remote
+      id="searchErrorDialog"
+      dialog="searchErrorDialog">
+    </isw-dialog-remote>
   </template>
 
   <script>
@@ -272,6 +278,7 @@
               self.updateStrainData(resultData);
            });
           }).catch((err) => {
+            this.$.searchErrorDialog.open();
             console.log("Error handling");
             console.log(err);
           }).then(() => {
