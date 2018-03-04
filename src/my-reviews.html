@@ -279,8 +279,6 @@
            });
           }).catch((err) => {
             this.$.searchErrorDialog.open();
-            console.log("Error handling");
-            console.log(err);
           }).then(() => {
             self.loading = false;
           });
