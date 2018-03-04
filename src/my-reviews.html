@@ -90,94 +90,81 @@
         <paper-spinner-lite alt="Loading Strain Data" active$="[[loading]]" class="green"></paper-spinner-lite>
       </div>
       <div class="table-container">   
-        <div hidden$="[[advancedView]]">
-          <vaadin-grid hidden$="[[noData]]" class="table" items="[[strainViewData]]" column-reordering-allowed multi-sort>
+        <vaadin-grid hidden$="[[noData]]" class="table" items="[[strainViewData]]" column-reordering-allowed multi-sort>
 
-            <vaadin-grid-column width="200px" resizable>
-              <template class="header">
-                  <vaadin-grid-sorter path="strain">Strain</vaadin-grid-sorter>
-              </template>
-              <template>[[item.strain]]</template>
-            </vaadin-grid-column>
+          <vaadin-grid-column width="200px" resizable>
+            <template class="header">
+                <vaadin-grid-sorter path="strain">Strain</vaadin-grid-sorter>
+            </template>
+            <template>[[item.strain]]</template>
+          </vaadin-grid-column>
 
-            <vaadin-grid-column width="150px" resizable>
-              <template class="header">
-                <vaadin-grid-sorter path="allbud.rating">Allbud</vaadin-grid-sorter>
-              </template>
-              <template><a class="link" href$="[[item.allbud.url]]">[[formatSimpleText(item.allbud.rating, item.allbud.ratings)]]</a></template>
-            </vaadin-grid-column>
+          <!-- Simple View -->
+          <vaadin-grid-column width="150px" resizable hidden$="[[advancedView]]">
+            <template class="header">
+              <vaadin-grid-sorter path="allbud.rating">Allbud</vaadin-grid-sorter>
+            </template>
+            <template><a class="link" href$="[[item.allbud.url]]">[[formatSimpleText(item.allbud.rating, item.allbud.ratings)]]</a></template>
+          </vaadin-grid-column>
 
-            <vaadin-grid-column width="150px" resizable>
-              <template class="header">
-                <vaadin-grid-sorter path="leafly.rating">Leafly</vaadin-grid-sorter>
-              </template>
-              <template><a class="link" href$="[[item.leafly.url]]">[[formatSimpleText(item.leafly.rating, item.leafly.ratings)]]</a></template>
-            </vaadin-grid-column>
+          <vaadin-grid-column width="150px" resizable hidden$="[[advancedView]]">
+            <template class="header">
+              <vaadin-grid-sorter path="leafly.rating">Leafly</vaadin-grid-sorter>
+            </template>
+            <template><a class="link" href$="[[item.leafly.url]]">[[formatSimpleText(item.leafly.rating, item.leafly.ratings)]]</a></template>
+          </vaadin-grid-column>
 
-            <vaadin-grid-column width="180px" resizable>
-              <template class="header">
-                <vaadin-grid-sorter path="metachronic.rating">Combined</vaadin-grid-sorter>
-              </template>
-              <template>[[formatSimpleText(item.metachronic.rating, item.metachronic.ratings)]]</template>
-            </vaadin-grid-column>
+          <vaadin-grid-column width="180px" resizable hidden$="[[advancedView]]">
+            <template class="header">
+              <vaadin-grid-sorter path="metachronic.rating">Combined</vaadin-grid-sorter>
+            </template>
+            <template>[[formatSimpleText(item.metachronic.rating, item.metachronic.ratings)]]</template>
+          </vaadin-grid-column>
+      
+          <!-- Advanced View -->
+          <vaadin-grid-column width="110px" resizable hidden$="[[!advancedView]]">
+            <template class="header">
+              <vaadin-grid-sorter path="allbud.rating">Allbud Rating</vaadin-grid-sorter>
+            </template>
+            <template><a class="link" href$="[[item.allbud.url]]">[[item.allbud.rating]]</a></template>
+          </vaadin-grid-column>
 
-          </vaadin-grid>
-        </div>
+          <vaadin-grid-column width="150px" resizable hidden$="[[!advancedView]]">
+            <template class="header">
+              <vaadin-grid-sorter path="allbud.ratings"># Allbud Reviews</vaadin-grid-sorter>
+            </template>
+            <template>[[item.allbud.ratings]]</template>
+          </vaadin-grid-column>
 
-        <div hidden$="[[!advancedView]]">
-          <vaadin-grid hidden$="[[noData]]" class="table" items="[[strainViewData]]" column-reordering-allowed multi-sort>
+          <vaadin-grid-column width="110px" resizable hidden$="[[!advancedView]]">
+            <template class="header">
+              <vaadin-grid-sorter path="leafly.rating">Leafly Rating</vaadin-grid-sorter>
+            </template>
+            <template><a class="link" href$="[[item.leafly.url]]">[[item.leafly.rating]]</a></template>
+          </vaadin-grid-column>
 
-            <vaadin-grid-column width="200px" resizable>
-              <template class="header">
-                  <vaadin-grid-sorter path="strain">Strain</vaadin-grid-sorter>
-              </template>
-              <template>[[item.strain]]</template>
-            </vaadin-grid-column>
-        
-            <vaadin-grid-column width="110px" resizable>
-              <template class="header">
-                <vaadin-grid-sorter path="allbud.rating">Allbud Rating</vaadin-grid-sorter>
-              </template>
-              <template><a class="link" href$="[[item.allbud.url]]">[[item.allbud.rating]]</a></template>
-            </vaadin-grid-column>
+          <vaadin-grid-column width="150px" resizable hidden$="[[!advancedView]]">
+            <template class="header">
+              <vaadin-grid-sorter path="leafly.ratings"># Leafly Reviews</vaadin-grid-sorter>
+            </template>
+            <template>[[item.leafly.ratings]]</template>
+          </vaadin-grid-column>
 
-            <vaadin-grid-column width="150px" resizable>
-              <template class="header">
-                <vaadin-grid-sorter path="allbud.ratings"># Allbud Reviews</vaadin-grid-sorter>
-              </template>
-              <template>[[item.allbud.ratings]]</template>
-            </vaadin-grid-column>
+          <vaadin-grid-column width="180px" resizable hidden$="[[!advancedView]]">
+            <template class="header">
+              <vaadin-grid-sorter path="metachronic.rating">Combined Rating</vaadin-grid-sorter>
+            </template>
+            <template>[[item.metachronic.rating]]</template>
+          </vaadin-grid-column>
 
-            <vaadin-grid-column width="110px" resizable>
-              <template class="header">
-                <vaadin-grid-sorter path="leafly.rating">Leafly Rating</vaadin-grid-sorter>
-              </template>
-              <template><a class="link" href$="[[item.leafly.url]]">[[item.leafly.rating]]</a></template>
-            </vaadin-grid-column>
+          <vaadin-grid-column width="180px" resizable hidden$="[[!advancedView]]">
+            <template class="header">
+              <vaadin-grid-sorter path="metachronic.ratings">Total # Reviews</vaadin-grid-sorter>
+            </template>
+            <template>[[item.metachronic.ratings]]</template>
+          </vaadin-grid-column>
 
-            <vaadin-grid-column width="150px" resizable>
-              <template class="header">
-                <vaadin-grid-sorter path="leafly.ratings"># Leafly Reviews</vaadin-grid-sorter>
-              </template>
-              <template>[[item.leafly.ratings]]</template>
-            </vaadin-grid-column>
-
-            <vaadin-grid-column width="180px" resizable>
-              <template class="header">
-                <vaadin-grid-sorter path="metachronic.rating">Combined Rating</vaadin-grid-sorter>
-              </template>
-              <template>[[item.metachronic.rating]]</template>
-            </vaadin-grid-column>
-
-            <vaadin-grid-column width="180px" resizable>
-              <template class="header">
-                <vaadin-grid-sorter path="metachronic.ratings">Total # Reviews</vaadin-grid-sorter>
-              </template>
-              <template>[[item.metachronic.ratings]]</template>
-            </vaadin-grid-column>
-
-          </vaadin-grid>
-        </div>
+        </vaadin-grid>
       </div>
       <div class="center-container">
         <paper-button class="green clear-table" on-click="clearTable" disabled$="[[loading]]" hidden$="[[noData]]">clear table</paper-button>
