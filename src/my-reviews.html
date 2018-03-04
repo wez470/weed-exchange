@@ -81,7 +81,8 @@
         <paper-input value="{{searchString}}"></paper-input>
       </div>
       <div class="top-table-container">
-        <paper-checkbox checked="{{advancedView}}">Advanced View</paper-checkbox>
+        <div class="placeholder-container" hidden$="[[!noData]]"></div>
+        <paper-checkbox checked="{{advancedView}}" hidden$="[[noData]]">Advanced View</paper-checkbox>
         <paper-button class="green" on-click="searchStrain" disabled$="[[loading]]">search</paper-button>
         <div class="placeholder-container"></div>
       </div>
@@ -231,7 +232,6 @@
         let cachedAdvancedView = localStorage['advancedView'];
         if (typeof cachedAdvancedView !== 'undefined') {
           this.advancedView = JSON.parse(cachedAdvancedView);
-          console.log('Cached adv view val: ' + JSON.parse(cachedAdvancedView))
         }
       }
 
