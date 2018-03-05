@@ -6,7 +6,7 @@
     "src/**/*"
   ],
   "fragments": [
-    "src/my-reviews.html",
+    "src/my-search.html",
     "src/my-404.html"
   ],
   "extraDependencies": [

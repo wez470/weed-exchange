@@ -18,7 +18,7 @@
 <link rel="import" href="my-icons.html">
 
 <link rel="lazy-import" href="my-404.html">
-<link rel="lazy-import" href="my-reviews.html">
+<link rel="lazy-import" href="my-search.html">
 
 <dom-module id="meta-chronic-app">
   <template>
@@ -133,7 +133,7 @@
           <img class="logo-mobile" src="images/metachronic-logo-128.png">
         </app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="reviews" href="[[rootPath]]reviews">Reviews</a>
+          <a name="search" href="[[rootPath]]search">Search</a>
         </iron-selector>
       </app-drawer>
 
@@ -156,7 +156,7 @@
                 <img class="logo" src="images/metachronic-logo-128.png">
               </div>
               <paper-tabs selected="[[page]]" attr-for-selected="name" role="tablist">
-                <paper-tab name="reviews"><a href="[[rootPath]]reviews">Reviews</a></paper-tab>
+                <paper-tab name="search"><a href="[[rootPath]]search">Search</a></paper-tab>
               </paper-tabs>
             </app-toolbar>
           </div>
@@ -168,7 +168,7 @@
             fallback-selection="404"
             role="main">
           <my-404 name="404"></my-404>
-          <my-reviews name="reviews"></my-reviews>
+          <my-search name="search"></my-search>
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
@@ -177,7 +177,7 @@
 
     <isw-dialog name="searchErrorDialog">
       <h2>Error</h2>
-      <p>Either your search has timed out or the servers are currently too busy. Please try again later.</p>
+      <p>Either your search has timed out, or the servers are currently too busy. Please try again later.</p>
       <div class="buttons">
         <paper-button dialog-confirm autofocus>Ok</paper-button>
       </div>
@@ -213,8 +213,8 @@
       }
 
       _routePageChanged(page) {
-        // Default to the reviews page
-        this.page = page || 'reviews';
+        // Default to the search page
+        this.page = page || 'search';
 
         if (!this.$.drawer.persistent) {
           this.$.drawer.close();
@@ -222,6 +222,9 @@
       }
 
       _pageChanged(page) {
+        // Google analytics page change for single page application
+        gtag('config', 'UA-115034635-1', {'page_path': '/' + page});
+
         var resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
         Polymer.importHref(
             resolvedPageUrl,

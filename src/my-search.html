@@ -9,7 +9,7 @@
 <link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-selection-column.html">
 <link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-sorter.html">
 
-<dom-module id="my-reviews">
+<dom-module id="my-search">
   <template>
     <style>
       .content {
@@ -184,8 +184,8 @@
      * @customElement
      * @polymer
      */
-    class MyReviews extends Polymer.Element {
-      static get is() { return 'my-reviews'; }
+    class MySearch extends Polymer.Element {
+      static get is() { return 'my-search'; }
 
       static get properties() {
         return {
@@ -337,6 +337,6 @@
       }
     }
 
-    window.customElements.define(MyReviews.is, MyReviews);
+    window.customElements.define(MySearch.is, MySearch);
   </script>
 </dom-module>
