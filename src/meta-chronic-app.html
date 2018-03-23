@@ -24,16 +24,16 @@
   <template>
     <style>
       :host {
-        --app-primary-color: #43A047;
+        --app-primary-color: #F5F5F5;
         --app-secondary-color: black;
-        --primary-color: #43A047;
+        --primary-color: #4CAF50;
         --secondary-color: black;
 
         display: block;
       }
 
       app-toolbar {
-        color: white;
+        color: black;
         background-color: var(--app-primary-color);
       }
 
@@ -41,15 +41,20 @@
         height: 5rem;
       }
 
+      .main-header {
+        box-shadow: 0px 5px 6px -3px rgba(0, 0, 0, 0.4);
+      }
+
       .title {
         display: flex;
         align-items: center;
+        font-size: 34px;
       }
 
       .logo {
-        width: 64px;
-        height: 64px;
-        margin-left: 14px;
+        width: 48px;
+        height: 48px;
+        margin-right: 14px;
       }
 
       .logo-mobile {
@@ -62,7 +67,7 @@
       }
 
       app-header paper-icon-button {
-        --paper-icon-button-ink-color: white;
+        --paper-icon-button-ink-color: black;
       }
 
       .drawer-list {
@@ -83,12 +88,11 @@
       }
 
       paper-tabs {
-        --paper-tabs-selection-bar-color: #A5D6A7;
+        --paper-tabs-selection-bar-color: #9E9E9E;
         height: 100%;
       }
       
       paper-tab {
-        --paper-tab-ink: white;
         min-width: 100px;
         max-width: 100px;
         font-size: 1.1rem;
@@ -97,7 +101,7 @@
       paper-tab a {
         @apply(--layout-horizontal);
         @apply(--layout-center-center);
-        color: white;
+        color: var(--app-secondary-color);
         text-decoration: none;
       }
 
@@ -139,7 +143,7 @@
 
       <app-header-layout has-scrolling-region>
         
-        <app-header slot="header" reveals effects="waterfall">
+        <app-header slot="header" class="main-header" reveals>
             <!-- mobile view header -->
           <div hidden$="[[wideLayout]]">
             <app-toolbar>
@@ -152,8 +156,8 @@
           <div hidden$="[[!wideLayout]]">
             <app-toolbar class="tall-toolbar">
               <div main-title class="title">
-                <span>Meta Chronic</span>
                 <img class="logo" src="images/metachronic-logo-128.png">
+                <span>Meta Chronic</span>
               </div>
               <paper-tabs selected="[[page]]" attr-for-selected="name" role="tablist">
                 <paper-tab name="search"><a href="[[rootPath]]search">Search</a></paper-tab>
