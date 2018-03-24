@@ -4,8 +4,8 @@
   "description": "Cannabis Reviews",
   "icons": [
     {
-      "src": "images/metachronic-logo-back-128.png",
-      "sizes": "192x192",
+      "src": "images/metachronic-logo-128.png",
+      "sizes": "128x128",
       "type": "image/png"
     },
     {
@@ -16,6 +16,6 @@
   ],
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#4CAF50",
-  "background_color": "#4CAF50"
+  "theme_color": "#F5F5F5",
+  "background_color": "#F5F5F5"
 }
