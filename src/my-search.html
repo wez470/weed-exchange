@@ -8,6 +8,9 @@
 <link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-column.html">
 <link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-selection-column.html">
 <link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-sorter.html">
+<link rel="import" href="../bower_components/vaadin-material-theme/vaadin-grid.html">
+
+<link rel="import" href="my-latest-searches.html">
 
 <dom-module id="my-search">
   <template>
@@ -27,6 +30,8 @@
         margin-top: 20px;
         margin-bottom: 20px;
         height: 100%;
+        border: 0px;
+        box-shadow: var(--shadow-elevation-2dp_-_box-shadow);
       }
       .table-container {
         margin: auto;
@@ -38,6 +43,9 @@
       }
       .link {
         text-decoration: none;
+      }
+      .search {
+        margin-top: 10px;
       }
       .clear-table {
         margin-bottom: 20px;
@@ -51,6 +59,12 @@
       }
       .placeholder-container {
         width: 135px;
+      }
+      paper-checkbox {
+        --paper-checkbox-unchecked-color: rgba(0, 0, 0, 0.54)
+      }
+      paper-button {
+        box-shadow: var(--shadow-elevation-2dp_-_box-shadow);
       }
       paper-button.green {
         color: var(--app-secondary-color);
@@ -84,7 +98,7 @@
       <div class="top-table-container">
         <div class="placeholder-container" hidden$="[[!noData]]"></div>
         <paper-checkbox checked="{{advancedView}}" hidden$="[[noData]]">Advanced View</paper-checkbox>
-        <paper-button class="green" on-click="searchStrain" disabled$="[[loading]]">search</paper-button>
+        <paper-button class="green search" on-click="searchStrain" disabled$="[[loading]]">search</paper-button>
         <div class="placeholder-container"></div>
       </div>
       
@@ -94,7 +108,7 @@
       <div class="table-container">   
         <vaadin-grid hidden$="[[noData]]" class="table" items="[[strainViewData]]" column-reordering-allowed multi-sort>
 
-          <vaadin-grid-column width="200px" resizable>
+          <vaadin-grid-column width="200px">
             <template class="header">
                 <vaadin-grid-sorter path="strain">Strain</vaadin-grid-sorter>
             </template>
@@ -102,21 +116,21 @@
           </vaadin-grid-column>
 
           <!-- Simple View -->
-          <vaadin-grid-column width="150px" resizable hidden$="[[advancedView]]">
+          <vaadin-grid-column width="150px" hidden$="[[advancedView]]">
             <template class="header">
               <vaadin-grid-sorter path="allbud.rating">Allbud</vaadin-grid-sorter>
             </template>
             <template><a class="link" href$="[[item.allbud.url]]">[[formatSimpleText(item.allbud.rating, item.allbud.ratings)]]</a></template>
           </vaadin-grid-column>
 
-          <vaadin-grid-column width="150px" resizable hidden$="[[advancedView]]">
+          <vaadin-grid-column width="150px" hidden$="[[advancedView]]">
             <template class="header">
               <vaadin-grid-sorter path="leafly.rating">Leafly</vaadin-grid-sorter>
             </template>
             <template><a class="link" href$="[[item.leafly.url]]">[[formatSimpleText(item.leafly.rating, item.leafly.ratings)]]</a></template>
           </vaadin-grid-column>
 
-          <vaadin-grid-column width="180px" resizable hidden$="[[advancedView]]">
+          <vaadin-grid-column width="180px" hidden$="[[advancedView]]">
             <template class="header">
               <vaadin-grid-sorter path="metachronic.rating">Combined</vaadin-grid-sorter>
             </template>
@@ -170,6 +184,10 @@
       </div>
       <div class="center-container">
         <paper-button class="green clear-table" on-click="clearTable" disabled$="[[loading]]" hidden$="[[noData]]">clear table</paper-button>
+        <h1>Latest Searches</h1>
+      </div>
+      <div class="table-container">
+        <my-latest-searches></my-latest-searches>
       </div>
     </div>
 

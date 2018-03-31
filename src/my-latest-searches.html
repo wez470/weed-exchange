@@ -1,0 +1,46 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner-lite.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-column.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-selection-column.html">
+<link rel="import" href="../bower_components/vaadin-grid/vaadin-grid-sorter.html">
+<link rel="import" href="../bower_components/vaadin-material-theme/vaadin-grid.html">
+
+<dom-module id="my-latest-searches">
+  <template>
+    <style>
+      .table {
+        border: 0px;
+        box-shadow: var(--shadow-elevation-2dp_-_box-shadow);
+      }
+    </style>
+
+    <vaadin-grid class="table" items="[[latestSearches]]" multi-sort>
+      <vaadin-grid-column width="300px">
+        <template class="header" flex-center>Search</template>
+        <template>[[item.search]]</template>
+      </vaadin-grid-column>
+    </vaadin-grid>
+  </template>
+  
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class MyLatestSearches extends Polymer.Element {
+      static get is() { return 'my-latest-searches'; }
+
+            static get properties() {
+        return {
+          latestSearches: {
+            type: Array,
+            value: [{search: 'raspberry kush'}, {search: 'jesus og'}, {search: 'snoop dog'}, {search: 'power plant'}]
+          }
+        };
+      }
+    }
+
+    window.customElements.define(MyLatestSearches.is, MyLatestSearches);
+  </script>
+</dom-module>

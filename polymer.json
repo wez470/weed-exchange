@@ -7,7 +7,8 @@
   ],
   "fragments": [
     "src/my-search.html",
-    "src/my-404.html"
+    "src/my-404.html",
+    "src/my-latest-searches.html"
   ],
   "extraDependencies": [
     "manifest.json",

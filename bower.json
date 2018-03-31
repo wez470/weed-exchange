@@ -28,7 +28,8 @@
     "vaadin-grid": "^4.1.5",
     "paper-spinner": "PolymerElements/paper-spinner#^2.1.0",
     "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.2",
-    "isw-dialog": "IswPolymerElements/isw-dialog#^1.0.3"
+    "isw-dialog": "IswPolymerElements/isw-dialog#^1.0.3",
+    "vaadin-material-theme": "vaadin/vaadin-material-theme#^0.3.0"
   },
   "resolutions": {
     "polymer": "^2.0.0"
