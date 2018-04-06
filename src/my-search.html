@@ -37,6 +37,10 @@
         margin: auto;
         max-width: 1600px;
       }
+      .table-container-small {
+        margin: auto;
+        max-width: 400px;
+      }
       .spinner {
         display: flex;
         justify-content: center
@@ -186,7 +190,7 @@
         <paper-button class="green margin-bottom" on-click="clearTable" disabled$="[[loading]]" hidden$="[[noData]]">clear table</paper-button>
         <h1>Latest Searches</h1>
       </div>
-      <div class="table-containe">
+      <div class="table-container-small">
         <my-latest-searches></my-latest-searches>
       </div>
     </div>
