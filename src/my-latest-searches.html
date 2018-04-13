@@ -40,6 +40,30 @@
           }
         };
       }
+
+      ready() {
+        super.ready();
+        this.initTableData();
+      }
+
+      initTableData() {
+        let self = this;
+        let data = {};
+        fetch('https://2e7fh4e5v9.execute-api.us-east-1.amazonaws.com/Prod')
+          .then((response) => {
+            response.text().then(function(text) {
+              console.log(text);
+              data = JSON.parse(text);
+              self.setLatestSearches(data);
+            });
+          }).catch((err) => {
+          })
+      }
+
+      setLatestSearches(data) {
+        console.log(data);
+        this.latestSearches = data;
+      }
     }
 
     window.customElements.define(MyLatestSearches.is, MyLatestSearches);
