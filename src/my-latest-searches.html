@@ -32,37 +32,13 @@
     class MyLatestSearches extends Polymer.Element {
       static get is() { return 'my-latest-searches'; }
 
-            static get properties() {
+      static get properties() {
         return {
           latestSearches: {
             type: Array,
-            value: [{search: 'raspberry kush'}, {search: 'black mountain x jesus og'}, {search: 'snoop dog'}, {search: 'power plant'}]
-          }
+            value: []
+          },
         };
-      }
-
-      ready() {
-        super.ready();
-        this.initTableData();
-      }
-
-      initTableData() {
-        let self = this;
-        let data = {};
-        fetch('https://2e7fh4e5v9.execute-api.us-east-1.amazonaws.com/Prod')
-          .then((response) => {
-            response.text().then(function(text) {
-              console.log(text);
-              data = JSON.parse(text);
-              self.setLatestSearches(data);
-            });
-          }).catch((err) => {
-          })
-      }
-
-      setLatestSearches(data) {
-        console.log(data);
-        this.latestSearches = data;
       }
     }
 

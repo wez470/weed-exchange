@@ -188,10 +188,14 @@
       </div>
       <div class="center-container">
         <paper-button class="green margin-bottom" on-click="clearTable" disabled$="[[loading]]" hidden$="[[noData]]">clear table</paper-button>
-        <h1>Latest Searches</h1>
       </div>
-      <div class="table-container-small">
-        <my-latest-searches></my-latest-searches>
+      <div hidden="[[!latestSearchesExist]]">
+        <div class="center-container">
+          <h1>Latest Searches</h1>
+        </div>
+        <div class="table-container-small">
+          <my-latest-searches latest-searches="[[latestSearches]]"></my-latest-searches>
+        </div>
       </div>
     </div>
 
@@ -232,6 +236,14 @@
             type: Boolean,
             value: false,
             observer: 'advancedViewChanged'
+          },
+          latestSearchesExist: {
+            type: Boolean,
+            value: false,
+          },
+          latestSearches: {
+            type: Array,
+            value: [],
           }
         };
       }
@@ -254,6 +266,7 @@
         super.ready();
         this.initializeTableViewChoice();
         this.initializeStrainData();
+        this.getLatestSearches();
       }
 
       initializeTableViewChoice() {
@@ -269,6 +282,24 @@
           this.strainData = JSON.parse(cachedStrainData);
           this.updateTableData()
         }
+      }
+
+      getLatestSearches() {
+        let self = this;
+        fetch('https://2e7fh4e5v9.execute-api.us-east-1.amazonaws.com/Prod')
+          .then((response) => {
+            response.json().then(function(data) {
+              data = JSON.parse(data);
+              self.setLatestSearches(data);
+            });
+          }).catch((err) => {
+          })
+      }
+
+      setLatestSearches(data) {
+        let tableData = data.map((search) => { return {search: search} });
+        this.latestSearches = tableData;
+        this.latestSearchesExist = this.latestSearches.length > 0;
       }
 
       updateTableData() {
